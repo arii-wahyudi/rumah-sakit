@@ -12,9 +12,11 @@ if (isset($_POST['submit'])) {
 			echo "<script>alert('berhasil');
 			document.location.href = 'dokter.php';
 			</script>";
+			
 		}else{
 			echo "<script>alert('Salah data');
 			</script>";
+			die();
 		}
 	}else if($bagian == "pasien"){
 		$query = mysqli_query($koneksi,"SELECT * FROM pasien WHERE username = '$username'")->fetch_assoc();
@@ -26,11 +28,13 @@ if (isset($_POST['submit'])) {
 		}else{
 			echo "<script>alert('Salah data');
 			</script>";
+			die();
 		}
 	}else if($bagian == "admin"){
 		echo $bagian;
 	}else{
 		echo "gagal";
+		dei();
 	}
 }
 ?>
