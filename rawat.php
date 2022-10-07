@@ -1,0 +1,75 @@
+<?php 
+include 'koneksi.php';
+$query = mysqli_query($koneksi,"SELECT * FROM rawat JOIN pasien ON rawat.id_pasien = pasien.id_pasien WHERE rawat.status = '1'");
+?>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/css/bootstrap.min.css" integrity="sha384-zCbKRCUGaJDkqS1kPbPd7TveP5iyJE0EjAuZQTgFLD2ylzuqKfdKlfG/eSrtxUkn" crossorigin="anonymous">
+	<title>Hospital</title>
+	<link rel="icon" href="assets/img/hospital.png">
+
+</head>
+<body>
+	<nav class="navbar navbar-expand-lg navbar-light bg-light">
+		<img src="assets/img/hospital.png" style=" width: 2rem; " alt="">
+		<a class="navbar-brand" href="#">Hospital</a>
+		<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+			<span class="navbar-toggler-icon"></span>
+		</button>
+		<div class="collapse navbar-collapse" id="navbarNav">
+			<ul class="navbar-nav">
+				<li class="nav-item">
+					<a class="nav-link" href="dokter.php">Home <span class="sr-only">(current)</span></a>
+				</li>
+				<li class="nav-item">
+					<a class="nav-link" href="pasien.php">Pasien</a>
+				</li>
+				<li class="nav-item active">
+					<a class="nav-link" href="rawat.php">Rawat inap</a>
+				</li>
+				<li class="nav-item">
+					<a class="nav-link" href="riwayat.php">Riwayat</a>
+				</li>
+			</ul>
+		</div>
+	</nav>
+	<br>
+	<main>
+		<div class="container">
+			<table class="table">
+				<thead>
+					<tr>
+						<th scope="col">No</th>
+						<th scope="col">Nama</th>
+						<th scope="col">kamar</th>
+						<th scope="col">Tgl masuk</th>
+						<th scope="col">Penyakit</th>
+						<th scope="col">aksi</th>
+					</tr>
+				</thead>
+				<tbody>
+					<?php $no = 1 ?>
+					<?php while ($data = mysqli_fetch_assoc($query)) { ?>		
+						<tr>
+							<th scope="row"><?php echo $no ?></th>
+							<td><?php echo $data['nama_pasien'] ?></td>
+							<td><?php echo $data['id_kamar'] ?></td>
+							<td><?php echo $data['masuk'] ?></td>
+							<td><?php echo $data['penyakit'] ?></td>
+							<td><a href="inap.php?id=<?php echo $data['id_rawat'] ?>"><button class="btn btn-primary">Lihat</button></a></td>
+						</tr>
+						<?php $no++ ?>
+					<?php } ?>
+				</tbody>
+			</table>
+		</div>
+	</main>
+
+
+	<script src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
+	<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-fQybjgWLrvvRgtW6bFlB7jaZrFsaBXjsOMm/tB9LTS58ONXgqbR9W8oWht/amnpF" crossorigin="anonymous"></script>
+</body>
+</html>
